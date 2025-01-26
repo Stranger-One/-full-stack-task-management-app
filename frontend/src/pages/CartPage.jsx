@@ -52,7 +52,7 @@ const CartPage = () => {
       itemId: item._id,
       quantity: item.quantity,
     }));
-    console.log("Order Data", orderData);
+    // console.log("Order Data", orderData);
 
     const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/orders`, {
       items: orderData,
@@ -62,7 +62,7 @@ const CartPage = () => {
       },
     });
 
-    console.log("Order Response", response.data);
+    // console.log("Order Response", response.data);
     
     
 

@@ -47,12 +47,12 @@ const ItemForm = ({ initialData = {}, setOpenForm, fetchMenu }) => {
     fileData.append("category", formData.category);
     fileData.append("price", formData.price);
 
-    console.log("submissionData", fileData);
+    // console.log("submissionData", fileData);
     let response;
 
     try {
       if (initialData?._id) {
-        console.log("updating item");
+        // console.log("updating item");
         response = await axios.put(
           `${import.meta.env.VITE_SERVER_BASE_URL}/menu/update/${initialData?._id}`,
           fileData,
@@ -64,7 +64,7 @@ const ItemForm = ({ initialData = {}, setOpenForm, fetchMenu }) => {
           }
         );
       } else {
-        console.log("adding item");
+        // console.log("adding item");
         response = await axios.post(
           `${import.meta.env.VITE_SERVER_BASE_URL}/menu/create`,
           fileData,
@@ -77,7 +77,7 @@ const ItemForm = ({ initialData = {}, setOpenForm, fetchMenu }) => {
         );
       }
 
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data) {
         toast.success("Item saved successfully");
         setFormData({

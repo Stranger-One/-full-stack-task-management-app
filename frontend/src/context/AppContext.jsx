@@ -37,7 +37,7 @@ const AppContext = ({ children }) => {
       );
     }
     toast.success("Item added to cart");
-    console.log(cart);
+    // console.log(cart);
   };
 
   const value = {

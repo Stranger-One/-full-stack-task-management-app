@@ -8,7 +8,7 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
-      console.log("Token", token);
+      // console.log("Token", token);
 
       if (!token) {
         console.error("No Token Found. User not authenticated.");
@@ -19,7 +19,7 @@ const OrderPage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data);
-        console.log("response", response.data);
+        // console.log("response", response.data);
       } catch (err) {
         console.error("Error fetching orders:", err);
       }

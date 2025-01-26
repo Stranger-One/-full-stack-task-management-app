@@ -21,7 +21,7 @@ const storage = new CloudinaryStorage({
         const fileType = file.mimetype.split('/')[0];
         const fileExtension = file.mimetype.split('/')[1];
 
-        console.log("Uploaded file information:", file);
+        // console.log("Uploaded file information:", file);
 
         let file_folder;
         let file_format;

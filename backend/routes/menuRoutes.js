@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 
 // Add a new menu item
 router.post("/create", protect, upload.single("file"), async (req, res) => {
-    console.log("req.body", req.body, req.file);
+    // console.log("req.body", req.body, req.file);
     
     const { name, category, price, availability } = req.body;
     const file = req.file;
@@ -20,13 +20,13 @@ router.post("/create", protect, upload.single("file"), async (req, res) => {
         return res.status(400).json({ message: "Please fill all the fields" });
     }
     try {
-        console.log("data", {
-            thumbnail: file?.path,
-            name,
-            category,
-            price,
-            availability,
-        });
+        // console.log("data", {
+        //     thumbnail: file?.path,
+        //     name,
+        //     category,
+        //     price,
+        //     availability,
+        // });
         const newItem = new Menu({
             thumbnail: file.path, // Path from the uploaded file
             name,
@@ -36,7 +36,7 @@ router.post("/create", protect, upload.single("file"), async (req, res) => {
         });
         await newItem.save();
         
-        console.log("newItem", newItem);
+        // console.log("newItem", newItem);
         
         res.status(201).json(newItem);
     } catch (err) {
@@ -51,7 +51,7 @@ router.put("/update/:id", protect, upload.single("file"), async (req, res) => {
     const { id } = req.params;
     const { name, category, price, availability } = req.body;
     const file = req.file;
-    console.log("req.body", req.body, req.file);
+    // console.log("req.body", req.body, req.file);
 
     try {
         const menuItem = await Menu.findById(id);

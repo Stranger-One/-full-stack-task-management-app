@@ -25,7 +25,7 @@ export default function Register() {
         username,
         password,
       });
-      console.log("data", response.data);
+      // console.log("data", response.data);
       if (response.status === 201) {
         toast.success("User has Registered Successfully!", {
           position: "top-center",
