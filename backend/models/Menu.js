@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema({
+	thumbnail:{
+		type:String,
+		required:true
+	},
 	name:{
 		type:String,
 		required:true

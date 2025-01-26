@@ -14,13 +14,13 @@ router.post("/",protect,async(req,res) => {
         let totalAmount = 0;
         const orderItems = await Promise.all(
             items.map(async(item) => {
-                const menuItem = await Menu.findById(item.menuItemId);
+                const menuItem = await Menu.findById(item.itemId);
                 if(!menuItem){
-                    throw new Error(`Menu item with Id ${item.menuItemId} not found`);
+                    throw new Error(`Menu item with Id ${item.itemId} not found`);
 
                 }
                 totalAmount += menuItem.price * item.quantity;
-                return {menuItemId: item._id,quantity:item.quantity};
+                return {itemId: item._id,quantity:item.quantity};
 
             })
         );
@@ -45,7 +45,7 @@ router.post("/",protect,async(req,res) => {
 
 router.get("/",protect,async(req,res) => {
     try{
-        const orders = await Order.find({userId:req.user.id}).populate("items.menuItemId","name price");
+        const orders = await Order.find({userId:req.user.id}).populate("items.itemId","name price");
         res.json(orders);
     }catch(err){
         res.status(500).json({message:"Error fetching orders",error:err.message});

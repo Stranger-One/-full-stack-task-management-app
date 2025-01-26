@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const coonectDB = async() => {
     try{
-        await mongoose.connect("mongodb+srv://bhemavallika:E7jALwJgGMblrTf9@cluster0.om0hz.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0");
+        await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connected.....");
         
     }catch(err){
-        console.log(err.message);
+        console.log(err);
         process.exit(1);
         
     }
