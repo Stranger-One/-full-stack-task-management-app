@@ -54,7 +54,7 @@ const CartPage = () => {
     }));
     console.log("Order Data", orderData);
 
-    const response = await axios.post("http://localhost:8000/orders", {
+    const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/orders`, {
       items: orderData,
     }, {
       headers: {

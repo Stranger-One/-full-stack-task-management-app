@@ -14,7 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/auth/login", { username, password });
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`, { username, password });
       localStorage.setItem("token", response.data.token);
       toast.success("Login Successful");
       navigate("/");

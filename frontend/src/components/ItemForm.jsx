@@ -54,7 +54,7 @@ const ItemForm = ({ initialData = {}, setOpenForm, fetchMenu }) => {
       if (initialData?._id) {
         console.log("updating item");
         response = await axios.put(
-          `http://localhost:8000/menu/update/${initialData?._id}`,
+          `${import.meta.env.VITE_SERVER_BASE_URL}/menu/update/${initialData?._id}`,
           fileData,
           {
             headers: {
@@ -66,7 +66,7 @@ const ItemForm = ({ initialData = {}, setOpenForm, fetchMenu }) => {
       } else {
         console.log("adding item");
         response = await axios.post(
-          "http://localhost:8000/menu/create",
+          `${import.meta.env.VITE_SERVER_BASE_URL}/menu/create`,
           fileData,
           {
             headers: {

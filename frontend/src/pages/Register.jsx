@@ -21,7 +21,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/auth/register", {
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`, {
         username,
         password,
       });

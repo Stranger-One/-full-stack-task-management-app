@@ -16,8 +16,8 @@ export default function MenuPage() {
 
   const fetchMenu = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:8000/menu");
-    // console.log(response.data);
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_BASE_URL}/menu`);
+    console.log(response.data);
     setMenuItems(response.data);
     setShowItems(response.data);
     setLoading(false);

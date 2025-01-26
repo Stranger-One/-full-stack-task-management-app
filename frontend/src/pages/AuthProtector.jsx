@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthProtector = ({ children }) => {
   const { pathname } = useLocation();

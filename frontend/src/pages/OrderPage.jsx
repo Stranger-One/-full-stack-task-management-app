@@ -15,7 +15,7 @@ const OrderPage = () => {
         return;
       }
       try {
-        const response = await axios.get("http://localhost:8000/orders", {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_BASE_URL}/orders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data);
