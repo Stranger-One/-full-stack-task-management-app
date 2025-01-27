@@ -12,36 +12,25 @@ router.get("/", async (req, res) => {
 
 // Add a new menu item
 router.post("/create", protect, upload.single("file"), async (req, res) => {
-    // console.log("req.body", req.body, req.file);
-    
     const { name, category, price, availability } = req.body;
     const file = req.file;
     if(!name || !category || !price || !availability || !file){
         return res.status(400).json({ message: "Please fill all the fields" });
     }
     try {
-        // console.log("data", {
-        //     thumbnail: file?.path,
-        //     name,
-        //     category,
-        //     price,
-        //     availability,
-        // });
         const newItem = new Menu({
-            thumbnail: file.path, // Path from the uploaded file
+            thumbnail: file.path,
             name,
             category,
-            price: parseFloat(price), // Ensure price is a number
-            availability: availability === "true", // Convert to boolean
+            price: parseFloat(price), 
+            availability: availability === "true",
         });
         await newItem.save();
-        
         // console.log("newItem", newItem);
         
         res.status(201).json(newItem);
     } catch (err) {
         console.log(err);
-        
         res.status(400).json({ message: "Invalid Data", error: err.message });
     }
 });
@@ -75,7 +64,7 @@ router.put("/update/:id", protect, upload.single("file"), async (req, res) => {
 });
 
 // Delete a menu item
-router.delete("/:id", protect, async (req, res) => {
+router.delete("/delete/:id", protect, async (req, res) => {
     const { id } = req.params;
 
     try {

@@ -3,12 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ItemForm from "../components/ItemForm";
 import { useAppContext } from "../context/AppContext";
+import Loader from "../components/Loader";
+import Menu from "../components/Menu";
 
 export default function MenuPage() {
   const [menuItems, setMenuItems] = useState([]);
   const [openForm, setOpenForm] = useState(false);
   const navigate = useNavigate();
-  const { addToCart } = useAppContext();
   const [initialData, setInitialData] = useState(null);
   const [showItems, setShowItems] = useState([]);
 
@@ -16,12 +17,15 @@ export default function MenuPage() {
 
   const fetchMenu = async () => {
     setLoading(true);
-    const response = await axios.get(`${import.meta.env.VITE_SERVER_BASE_URL}/menu`);
-    console.log(response.data);
+    const response = await axios.get(
+      `${import.meta.env.VITE_SERVER_BASE_URL}/menu`
+    );
+    // console.log(response.data);
     setMenuItems(response.data);
     setShowItems(response.data);
     setLoading(false);
   };
+
   useEffect(() => {
     fetchMenu();
   }, []);
@@ -30,71 +34,58 @@ export default function MenuPage() {
     setOpenForm(true);
     setInitialData(item);
   };
+
+
   // console.log("cart item",cart);
 
   return (
     <div className="w-full min-h-screen bg-gray-100">
       <div className="mx-auto p-4 md:p-8">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-center">
           <h2 className="text-3xl font-bold text-center">Menu</h2>
-          <div className="">
-            <input
-              type="text"
-              placeholder="Search Items..."
-              className="mt-4 p-2 border rounded"
-              onChange={(e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                setShowItems(() =>
-                  menuItems.filter((item) =>
-                    item.name.toLowerCase().includes(searchTerm)
-                  )
-                );
-              }}
-            />
+          <div className="flex items-center justify-between w-full md:w-1/2 h-10">
+            <div className="border rounded  h-10">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 inline-block mx-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search Items..."
+                className=" p-2 border-none outline-none "
+                onChange={(e) => {
+                  const searchTerm = e.target.value.toLowerCase();
+                  setShowItems(() =>
+                    menuItems.filter((item) =>
+                      item.name.toLowerCase().includes(searchTerm)
+                    )
+                  );
+                }}
+              />
+            </div>
+            <button
+              onClick={() => setOpenForm(true)}
+              className=" bg-amber-500 text-white py-2 px-4 rounded hover:bg-amber-600 cursor-pointer"
+            >
+              Add New Item
+            </button>
           </div>
-          <button
-            onClick={() => setOpenForm(true)}
-            className="mt-4 bg-amber-500 text-white py-2 px-4 rounded hover:bg-amber-600 cursor-pointer"
-          >
-            Add New Item
-          </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {!loading ? (
             showItems?.length ? (
               showItems.map((item) => (
-                <div key={item._id} className="bg-white p-4 shadow-md rounded">
-                  <div className="w-full h-[200px]">
-                    <img
-                      src={item.thumbnail}
-                      alt=""
-                      className="object-cover w-full h-full rounded"
-                    />
-                  </div>
-                  <div className="">
-                    <h3 className="text-lg font-bold capitalize">
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-600 capitalize">
-                      Category: {item.category}
-                    </p>
-                    <p className="text-gray-600">Price: ₹{item.price}</p>
-                    <div className="flex items-center justify-between w-full gap-4">
-                      <button
-                        onClick={() => handleEditClick(item)}
-                        className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer w-full"
-                      >
-                        Edit Item
-                      </button>
-                      <button
-                        onClick={() => addToCart(item)}
-                        className="mt-4 bg-amber-500 text-white py-2 px-4 rounded hover:bg-amber-600 cursor-pointer w-full"
-                      >
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Menu key={item._id} item={item} handleEditClick={handleEditClick} fetchMenu={fetchMenu} />
               ))
             ) : (
               <div className="text-center w-full text-2xl font-bold col-span-full">
